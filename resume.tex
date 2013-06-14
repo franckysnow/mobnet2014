@@ -1,4 +1,4 @@
-\documentclass[7pt]{scrartcl}
+\documentclass[6pt]{scrartcl}
 \usepackage[landscape,margin=20pt]{geometry}
 
 \usepackage{amsmath}
@@ -21,7 +21,7 @@
 
 
 %Commands to format and shorten
-\setlength{\columnseprule}{0.2pt}
+\setlength{\columnseprule}{0.1pt}
 \setlength{\parindent}{0cm}
 \setlength{\parskip}{0em plus 0.2em minus 0.2em}%plus 0.1ex minus 0.2ex}
 
@@ -31,7 +31,53 @@
 
 \begin{document}
 \begin{multicols}{4}
-\section{Bianchi}
+\section{Introduction}
+\subsection{Protocol performances}
+$G$: Total load, $S$ arrival rate of new packets. 
+\subsubsection{Pure ALOHA} If you have data to send, send the data. If the message collides with another transmission, try resending later. On collision, sender waits random time before trying again.
+$P(k \text{ transm. in } 2X\text s) = \frac{(2G)^k}{k!} e^{-2G}$\\
+$S = G \cdot P(0) = Ge^{-2G}$
+
+
+\subsubsection{Slotted ALOHA} 
+%C'est pas slotted alpha ça? 
+Probability of $k$ packets generated during a slot:
+$P(k) = \frac{G^ke^{-G}}{k!}$
+Throughput:
+$P(1) = Ge^{-G}$
+
+\subsubsection{CSMA}
+Goal: reduce the wastage of bandwidth due to packet collisions.
+Principle: sensing the channel before transmitting (never transmit when the channel is busy).
+\paragraph{Non-persistent} If channel is busy, directly run back off algorithm.
+\paragraph{p-persistent} If it is busy, they persist with sensing until the channel becomes idle. If it is idle:\\
+- With probability $p$, the station transmits its packet\\
+- With probability $1-p$, the station waits for a random time and senses again
+
+\paragraph{Performance of Unslotted nonpersistent CSMA}:
+For $a=t_\textrm{prop}/X$, the normalized one-way propagation delay.
+$S = \frac{G^{-aG}}{G(1+2a)+e^{-aG}}$
+
+\paragraph{Performance of Slotted nonpersistent CSMA}:
+$S = \frac{aG^{-aG}}{1-e^{-aG} + a}$
+
+\includegraphics[height=\columnwidth, angle=270]{comparatif}
+
+\subsection{Exercises}
+Capacity of a link vs Transmission capacity (=total capacity of all the links). Wire : $C_t=\min \{C_1, C_2\}$ Wireless : $d/C_t = d/C_1+d/C_2 \leftrightarrow C_t = (c_1 c_2/c_1+c_2)$\\
+ALOHA : Aloha channel with infinite number of users gives 94\% of idle slots. $P(0) = \mathrm{e}^{-G}=0.94 \rightarrow G=0.062$ \\ $S=P(1)=G\mathrm{e}^{-G}\approx 5.8\%$ \\ $G<G_{peak} = 1$ : channel underloaded. \\ Ration of busy slots occupied by collisions : $\frac{1-P(0)-P(1)}{1-P(0)}=3.3\%$
+
+\section{WLAN Engineering aspects}
+\includegraphics[width=\columnwidth]{frequencies}
+
+
+
+
+
+
+
+
+
 
 \subsection{probabilities}
 $\pi$, probability of transmission, $p$, probability of collision,
@@ -180,46 +226,7 @@ $$\frac{P_t}{P_r} = \frac{(4\pi d)^2}{G_rG_t\lambda^2} = \frac{(cd)^2}{f^2A_rA_t
 $G_t$ = gain of transmitting antenna\\
 $A_r$ = effective area of receiving antenna
 
-\subsection{Protocol performances}
-$G$: Total load, $S$ arrival rate of new packets. 
-\subsubsection{Pure ALOHA}
-\begin{align*}
-P(k \text{ transm. in } 2X\text s) &= \frac{(2G)^k}{k!} e^{-2G}\\
-S = G \cdot P(0) &= Ge^{-2G}
-\end{align*}
 
-\subsubsection{Slotted ALOHA} 
-%C'est pas slotted alpha ça? 
-Probability of $k$ packets generated during a slot:
-
-\begin{equation*}
-P(k) = \frac{G^ke^{-G}}{k!}
-\end{equation*}
-
-Throughput:
-
-\begin{equation*}
-P(1) = Ge^{-G}
-\end{equation*}
-
-\subsubsection{CSMA}
-\paragraph{Non-persistent} If channel is busy, directly run back off algorithm.
-\paragraph{p-persistent} If it is busy, they persist with sensing until the channel becomes idle. If it is idle:\\
-- With probability $p$, the station transmits its packet\\
-- With probability $1-p$, the station waits for a random time and senses again
-
-\paragraph{Performance of Unslotted nonpersistent CSMA}:
-For $a=t_\textrm{prop}/X$, the normalized one-way propagation delay.
-
-\begin{equation*}
-S = \frac{G^{-aG}}{G(1+2a)+e^{-aG}}
-\end{equation*}
-
-\paragraph{Performance of Slotted nonpersistent CSMA}:
-
-\begin{equation*}
-S = \frac{aG^{-aG}}{1-e^{-aG} + a}
-\end{equation*}
 
 \subsection{DOMINO Cheating detection}
 \begin{tabular}{|p{0.35\columnwidth}|p{0.55\columnwidth}|}
@@ -317,7 +324,7 @@ For \textbf{one} tag in $P_i$, the linkability probability is  $1/|P_i| \rightar
 \end{equation*}
 
 \section{Comparisons}
-\includegraphics[height=\columnwidth, angle=270]{comparatif}
+
 \begin{center}
 This amazing cheat-sheet was brought to you by \emph{Julien Perrochet}, \emph{Christopher Chiche} and \emph{Tobias Schlatter}. Follow us on GitHub: \url{https://github.com/Shastick/mobnet2012} !
 \end{center}
