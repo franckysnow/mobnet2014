@@ -175,10 +175,57 @@ $
    \hline
 \end{tabular}
 
+\section{Antennas \& Propagation}
+Free space propagation, received power: $P_\textrm{R} = P_\textrm{T}\frac{A_\textrm{R}}{4\pi d^2}\eta_\textrm{R}$ with $\eta_\textrm{R}$ an efficiency parameter, $A_\textrm{R}$ the receiving antenna area.
+\\
+Focusing capability, depends on size in wavelength $\lambda$:  
+\\$G_\textrm{T} = 4\pi\eta_\textrm{T}A_\textrm{T}/\lambda^2$ \\
+Directional emitter, received power: $P_\textrm{R} = P_\textrm{T}G_\textrm{T}\frac{A_\textrm{R}}{4\pi d^2}\eta_\textrm{R}$
+
+Free space received power: $P_\textrm{R} =  P_\textrm{T}G_\textrm{T}G_\textrm{R}(\frac{\lambda}{4\pi d})^2$
+
+Loss: $L = \frac{P_T}{P_R} = \frac{(4\pi d)^2}{G_RG_T\lambda^2} $
+
+$ c = 3 \cdot 10^8 $
+
+Parabola: $G = \frac{7A}{\lambda^2}$
+
+\paragraph{Mobnet Decibels}:
+$B = 10\log(\frac{P}{P_0})$
+
+\paragraph{Propagation modes}
+\emph{Ground Wave}: $f \le 2$ Mhz, \emph{Sky Wave}, \emph{Line of Sight}: $f \ge 30$ Mhz
+
+\subsubsection{Line of sight equations}
+Horizon distance $d[\textrm{km}]$ in \textbf{kilometers}, antenna height $h[\textrm{m}]$ and refraction adjustment factor $K = 4/3$:
+\begin{description}
+\item[Optical LOS]: $d = 3.57\sqrt{h}$
+\item[Effective LOS]: $d = 3.57\sqrt{Kh}$
+\item[Max LOS distance for two antennas :] $$3.57(\sqrt{Kh_1}+ \sqrt{Kh_2})$$
+\end{description}
 
 
+\subsection{Free Space Loss}
 
-\section{Trunk dimensioning}
+Free space loss, ideal isotropic antenna:
+$$ \frac{P_t}{P_r} = \frac{(4\pi d)^2}{\lambda^2} = \frac{(4\pi fd)^2}{c^2} $$
+Free space loss equation can be recast:
+$$L_{DB} = 10\log \frac{P_t}{P_r} = 20 \log(f) +20\log(d) - 147.56 dB$$
+Free space loss accounting for gain of other antennas: 
+$$\frac{P_t}{P_r} = \frac{(4\pi d)^2}{G_rG_t\lambda^2} = \frac{(cd)^2}{f^2A_rA_t}$$
+$G_t$ = gain of transmitting antenna\\
+$A_r$ = effective area of receiving antenna
+
+\paragraph{Categories of noise}: Thermal Noise, Intermodulation Noise, Cross-talk, Impulse Noise.
+\paragraph{Thermal Noise}$N_0 = kT\quad(W/Hz)$
+
+For signal power $S$, bitrate $R$, $k = 1.3806\cdot10^{-23} JK^{-1}$ the Boltzmann constant and $T$ the temperature: $\frac{E_b}{N_0} = \frac{S/R}{N_0} = \frac{S}{kTR}$
+
+\subsection{Forward Error Correction (FEC)}
+Redundancy in packets to allow limited error correction at the receiver: used in 802.11a (Convolutional), HSDPA (Turbo Codes) and 802.11n (LDPC).
+
+
+\section{Cellular Networks}
 For a trunk of $N$ channels, an offered load $A=\lambda E[X]$, $X$ the call duration, $Y$ the call arrival per sec $\sim$ Poisson($\lambda$) and $\rho$ the traffic carried by each channel: 
 \begin{align*}
 	P_\textrm{Blocking} &= P(\textrm{Drop a call because busy line})  \\
@@ -189,7 +236,6 @@ For a trunk of $N$ channels, an offered load $A=\lambda E[X]$, $X$ the call dura
 
 \paragraph{Cellular efficiency} $E = \frac{Conversations}{cells\times MHz}$
 
-\section{Cellular Geometry: Hexagons}
 
 \textbf{Area}: $A=1.5R^2\sqrt{3}$\\
 \textbf{Distance btw. adjacent cells}: $d=\sqrt{3}R$
@@ -236,14 +282,12 @@ $f = \frac{N_0}{N_0 + \sum_iU_iN_{ai}}$ where $N_0$ = total interference power r
 \paragraph{Average received power from users in adjacent cell}
 $N_{ai} = \sum_j N_{ij}/U_i$ where $N_{ij}$ = power received at the base station of interest from the $j^\text{th}$ user in the $i^\text{th}$ cell
 
-\section{Noise}
-\paragraph{Categories}: Thermal Noise, Intermodulation Noise, Cross-talk, Impulse Noise.
-\paragraph{Thermal Noise}$N_0 = kT\quad(W/Hz)$
 
-For signal power $S$, bitrate $R$, $k = 1.3806\cdot10^{-23} JK^{-1}$ the Boltzmann constant and $T$ the temperature: $\frac{E_b}{N_0} = \frac{S/R}{N_0} = \frac{S}{kTR}$
 
-\section{Wireless Misc Stuff}
-\includegraphics[width=\columnwidth]{frequencies}
+
+
+
+
 
 \paragraph{Mobile IP Requirements}:
 Transparency, Compatibility, Security, Efficiency, Scalability.
@@ -259,53 +303,7 @@ Then the throughput $\lambda(n)$ obtainable by each node for a randomly chosen d
 
 \paragraph{Routing} \emph{proactive}: DSDV, OLSR. \emph{reactive}: AODV, DSR
 
-\subsection{Antennas \& Propagation}
-Free space propagation, received power: $P_\textrm{R} = P_\textrm{T}\frac{A_\textrm{R}}{4\pi d^2}\eta_\textrm{R}$ with $\eta_\textrm{R}$ an efficiency parameter, $A_\textrm{R}$ the receiving antenna area.
-\\
-Focusing capability, depends on size in wavelength $\lambda$:  
-\\$G_\textrm{T} = 4\pi\eta_\textrm{T}A_\textrm{T}/\lambda^2$ \\
-Directional emitter, received power: $P_\textrm{R} = P_\textrm{T}G_\textrm{T}\frac{A_\textrm{R}}{4\pi d^2}\eta_\textrm{R}$
 
-Free space received power: $P_\textrm{R} =  P_\textrm{T}G_\textrm{T}G_\textrm{R}(\frac{\lambda}{4\pi d})^2$
-
-Loss: $L = \frac{P_T}{P_R} = \frac{(4\pi d)^2}{G_RG_T\lambda^2} $
-
-$ c = 3 \cdot 10^8 $
-
-Parabola: $G = \frac{7A}{\lambda^2}$
-
-\paragraph{Mobnet Decibels}:
-$B = 10\log(\frac{P}{P_0})$
-
-\paragraph{Propagation modes}
-\emph{Ground Wave}: $f \le 2$ Mhz, \emph{Sky Wave}, \emph{Line of Sight}: $f \ge 30$ Mhz
-
-\subsubsection{Line of sight equations}
-Horizon distance $d[\textrm{km}]$ in \textbf{kilometers}, antenna height $h[\textrm{m}]$ and refraction adjustment factor $K = 4/3$:
-\begin{description}
-\item[Optical LOS]: $d = 3.57\sqrt{h}$
-\item[Effective LOS]: $d = 3.57\sqrt{Kh}$
-\item[Max LOS distance for two antennas :] $$3.57(\sqrt{Kh_1}+ \sqrt{Kh_2})$$
-\end{description}
-
-
-\subsection{Free Space Loss}
-
-Free space loss, ideal isotropic antenna:
-$$ \frac{P_t}{P_r} = \frac{(4\pi d)^2}{\lambda^2} = \frac{(4\pi fd)^2}{c^2} $$
-Free space loss equation can be recast:
-$$L_{DB} = 10\log \frac{P_t}{P_r} = 20 \log(f) +20\log(d) - 147.56 dB$$
-Free space loss accounting for gain of other antennas: 
-$$\frac{P_t}{P_r} = \frac{(4\pi d)^2}{G_rG_t\lambda^2} = \frac{(cd)^2}{f^2A_rA_t}$$
-$G_t$ = gain of transmitting antenna\\
-$A_r$ = effective area of receiving antenna
-
-
-
-
-
-\subsection{Forward Error Correction (FEC)}
-Redundancy in packets to allow limited error correction at the receiver: used in 802.11a (Convolutional), HSDPA (Turbo Codes) and 802.11n (LDPC).
 
 \section{TCP}
 
