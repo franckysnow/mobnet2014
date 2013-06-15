@@ -69,11 +69,72 @@ ALOHA : Aloha channel with infinite number of users gives 94\% of idle slots. $P
 
 \section{WLAN Engineering aspects}
 \includegraphics[width=\columnwidth]{frequencies}
-
-
-
-
-
+Frequency(f) and wave length($\lambda$), $c=3 \times 10^8 m/s$  : $\lambda = c/f$
+\subsection{802.11}
+\textbf{Physical layer} : DSSS or FHSS,
+\textbf{MAC Layer} : best effort asynchronous data service, DCF CSMA/CA (mandatory), DCF with RTS/CTS or PCF (optional)
+\includegraphics[width=\columnwidth]{B1}
+CSMA/CA Unicast : \\
+\includegraphics[width=\columnwidth]{B12}
+DCF with RTS/CTS (with fragmentation) : \\
+\includegraphics[width=\columnwidth]{B14}
+MAC address format : \\
+\includegraphics[width=\columnwidth]{B15}
+\subsection{Exercises}
+Wireless LAN use polling between M workstations and a central access point. Channel at 25Mbps. Stations 100 m away from AP, polling messages 64 bytes long. Packet length : 1250 bytes. No more packet indicated with 64-byte message. Maximum arrival rate $\lambda_{max} = \rho_{max} * Br/P_{length}$ $\rho_{max}=\frac{Effective time}{Whole time}=\frac{M*N*T_{packet}}{M*(NT_{packet}+T_{poll}+T_{end}+2t_{prop})}$ $t_{prop}=d/c$ $T_{packet}=\frac{1250*8}{25*10^6}$\\
+One station A sends a frame to another station B in a different BSS in
+an IEEE 802.11 infrastructure network with DCF access method without RTS/CTS.
+\\
+A $\rightarrow$ AP1 \\
+\begin{tabular}{|c|c|c|c|c|c|c|}
+  \hline
+  To & From & Type & Dur & A1 & A2 & A3 \\
+  \hline
+  1 & 0 & Data & $T_{d}+SIFS+T_{A}$ & BSS1 & A & B \\
+  \hline
+\end{tabular}\\
+AP1 $\rightarrow$ A\\
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  To DS & From DS & Type & Duration & Addr. 1 \\
+  \hline
+  0 & 0 & ACK & 0 & A \\
+  \hline
+\end{tabular}
+\\
+AP1 $\rightarrow$ AP1 \\
+\begin{tabular}{|c|c|c|c|c|c|c|}
+  \hline
+  To & From & Type & Dur & A1 & A2 & A3 \\
+  \hline
+  1 & 1 & Data & $T_{d} + S + T_{A}$ & AP1 & B & A \\
+  \hline
+\end{tabular}\\
+AP2 $\rightarrow$ AP1\\
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  To DS & From DS & Type & Duration & Addr. 1 \\
+  \hline
+  0 & 0 & ACK & 0 & AP1 \\
+  \hline
+\end{tabular}
+\\
+AP2 $\rightarrow$ B \\
+\begin{tabular}{|c|c|c|c|c|c|c|}
+  \hline
+  To & From & Type & Dur & A1 & A2 & A3 \\
+  \hline
+  0 & 1 & Data & $T_{d} + S + T_{A}$ & B & BSS2 & A \\
+  \hline
+\end{tabular}\\
+B $\rightarrow$ AP2\\
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  To DS & From DS & Type & Duration & Addr. 1 \\
+  \hline
+  0 & 0 & ACK & 0 & BSS2 \\
+  \hline
+\end{tabular}
 
 
 
