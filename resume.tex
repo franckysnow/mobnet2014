@@ -136,23 +136,21 @@ B $\rightarrow$ AP2\\
   \hline
 \end{tabular}
 
-
-
-
-
-\subsection{probabilities}
+\section{Bianchi model}
 $\pi$, probability of transmission, $p$, probability of collision,
 $b_{i,k}$ stationary probability of state $i,k$:
-\begin{align*}
-p &= 1-(1-\pi)^{N-1} \\
-\pi &= \frac{2}{ 1 + W_\textrm{min} + pW_\textrm{min}\sum^{m-1}_{k=0}(2p)^k}\\
-	 &= \frac{2(1-p)}{(1-2p)(W_{min} + 1)+pW_{min}(1-(2p)^m)}\\
-b_{i,k} &= \frac{CW_i - k}{CW_i} \cdot \left \{ \begin{array}{ll}
+$
+p = 1-(1-\pi)^{N-1}$$ \\
+$$\pi = \sum\limits_{i=0}^m b_{i,0} = \frac{b_{0,0}}{1-p} = \frac{2(1-2p)}{(1-2p)(W_{min} + 1)+pW_{min}(1-(2p)^m)}$
+$
+ = \frac{2}{ 1 + W_\textrm{min} + pW_\textrm{min}\sum^{m-1}_{k=0}(2p)^k}$
+ \\$
+b_{i,k} = \frac{CW_i - k}{CW_i} \cdot \left \{ \begin{array}{ll}
     (1-p) \sum_{j=0}^m b_{j,0} & i = 0\\
     p \cdot b_{i-1,0} & 0 < i < m\\
     p \cdot (b_{m-1,0} + b_{m,0}) & i = m
     \end{array} \right.
-\end{align*}
+$
 
 \subsection{Saturation throughput}
 
@@ -161,9 +159,24 @@ b_{i,k} &= \frac{CW_i - k}{CW_i} \cdot \left \{ \begin{array}{ll}
  &= \frac{P_\textrm{s}P_{\textrm{tr}}L}{P_\textrm{s}P_{\textrm{tr}}T_{\textrm{s}} + P_\textrm{tr}(1-P_\textrm{s})T_\textrm{c} + (1-P_\textrm{tr})T_\textrm{id}}, \\
  P_\textrm{s} &= \frac{N\pi (1-\pi)^{N-1}}{1-(1-\pi)^N}, \\
  P_\textrm{tr} &= 1-(1-\pi)^N, \\
- T_\textrm{s} &= t_\textrm{header} + t_\textrm{payload} + \textrm{SIFS} + t_\textrm{ACK} + \textrm{DIFS} + \sigma,\\
+ T_\textrm{s} &= t_\textrm{header} + t_\textrm{payload} + \textrm{SIFS} + t_\textrm{ACK} + \textrm{DIFS} + 2\sigma,\\
  T_\textrm{c} &= t_\textrm{header} + t_\textrm{payload} + \textrm{SIFS} + \sigma
 \end{align*}
+
+\subsection{DOMINO Cheating detection}
+\begin{tabular}{|p{0.35\columnwidth}|p{0.55\columnwidth}|}
+  \hline
+  Cheating Method & Detection Test \\\hline
+  Frame scrambling & Number of retransmissions \\
+  Oversized NAV1 & Comparison of the declared and actual NAV values\\
+  Transmission before DIFS & Comparison of the idle time after the last ACK with DIFS \\
+  Backoff manipulation & Actual Backoff/ Consecutive Backoff \\
+  Frame scrambling with MAC forging & Periodic dummy frame injection\\
+   \hline
+\end{tabular}
+
+
+
 
 \section{Trunk dimensioning}
 For a trunk of $N$ channels, an offered load $A=\lambda E[X]$, $X$ the call duration, $Y$ the call arrival per sec $\sim$ Poisson($\lambda$) and $\rho$ the traffic carried by each channel: 
@@ -289,17 +302,7 @@ $A_r$ = effective area of receiving antenna
 
 
 
-\subsection{DOMINO Cheating detection}
-\begin{tabular}{|p{0.35\columnwidth}|p{0.55\columnwidth}|}
-  \hline
-  Cheating Method & Detection Test \\\hline
-  Frame scrambling & Number of retransmissions \\
-  Oversized NAV1 & Comparison of the declared and actual NAV values\\
-  Transmission before DIFS & Comparison of the idle time after the last ACK with DIFS \\
-  Backoff manipulation & Actual Backoff/ Consecutive Backoff \\
-  Frame scrambling with MAC forging & Periodic dummy frame injection\\
-   \hline
-\end{tabular}
+
 
 \subsection{Forward Error Correction (FEC)}
 Redundancy in packets to allow limited error correction at the receiver: used in 802.11a (Convolutional), HSDPA (Turbo Codes) and 802.11n (LDPC).
