@@ -102,39 +102,10 @@ AP1 $\rightarrow$ A\\
   \hline
 \end{tabular}
 \\
-AP1 $\rightarrow$ AP1 \\
-\begin{tabular}{|c|c|c|c|c|c|c|}
-  \hline
-  To & From & Type & Dur & A1 & A2 & A3 \\
-  \hline
-  1 & 1 & Data & $T_{d} + S + T_{A}$ & AP1 & B & A \\
-  \hline
-\end{tabular}\\
-AP2 $\rightarrow$ AP1\\
-\begin{tabular}{|c|c|c|c|c|}
-  \hline
-  To DS & From DS & Type & Duration & Addr. 1 \\
-  \hline
-  0 & 0 & ACK & 0 & AP1 \\
-  \hline
-\end{tabular}
-\\
-AP2 $\rightarrow$ B \\
-\begin{tabular}{|c|c|c|c|c|c|c|}
-  \hline
-  To & From & Type & Dur & A1 & A2 & A3 \\
-  \hline
-  0 & 1 & Data & $T_{d} + S + T_{A}$ & B & BSS2 & A \\
-  \hline
-\end{tabular}\\
-B $\rightarrow$ AP2\\
-\begin{tabular}{|c|c|c|c|c|}
-  \hline
-  To DS & From DS & Type & Duration & Addr. 1 \\
-  \hline
-  0 & 0 & ACK & 0 & BSS2 \\
-  \hline
-\end{tabular}
+AP1 $\rightarrow$ AP1 : 1 , 1 , Data , $T_{d} + S + T_{A}$ , AP1 , B , A \\
+AP2 $\rightarrow$ AP1 : 0, 0, ACK, 0, AP1 \\
+AP2 $\rightarrow$ B : 0, 1, Data, $T_{d} + S + T_{A}$, B, BSS2, A \\
+B $\rightarrow$ AP2 : 0, 0, ACK, 0, BSS2
 
 \section{Bianchi model}
 $\pi$, probability of transmission, $p$, probability of collision,
@@ -282,7 +253,14 @@ $f = \frac{N_0}{N_0 + \sum_iU_iN_{ai}}$ where $N_0$ = total interference power r
 \paragraph{Average received power from users in adjacent cell}
 $N_{ai} = \sum_j N_{ij}/U_i$ where $N_{ij}$ = power received at the base station of interest from the $j^\text{th}$ user in the $i^\text{th}$ cell
 
+\subsection{Ad-hoc Netowrks} %D3 - slide 48
+\paragraph{Upper Bound for the Throughput} 
+If we have $n$ identical randomly located nodes each capable of transmitting $W$ bits/s. 
+Then the throughput $\lambda(n)$ obtainable by each node for a randomly chosen destination is $\lambda(n) = \Theta\left(\frac W{\sqrt{n\log n}}\right)$
 
+\paragraph{Routing} \emph{proactive}: DSDV, OLSR. \emph{reactive}: AODV, DSR \\
+\emph{DSR : } Route discovery only when source S attempts to send a packet to destination D, by flooding Route Requests (RREQ). Route maintenance by allowing S to detect when a link is broken with a Route Error message RERR, S try other route in its cache, otherwise route disc.
+\emph{AODV : } Similar to DSR but maintains routing tables at the nodes (smaller header). AODV ages the routes and maintains a hop count.
 
 
 
@@ -296,12 +274,6 @@ Transparency, Compatibility, Security, Efficiency, Scalability.
 
 \paragraph{Network Layers} Top-down: Application, Transport, (HIP layer), Network, Data-link, Physical.
 
-\subsection{Ad-hoc Netowrks} %D3 - slide 48
-\paragraph{Upper Bound for the Throughput} 
-If we have $n$ identical randomly located nodes each capable of transmitting $W$ bits/s. 
-Then the throughput $\lambda(n)$ obtainable by each node for a randomly chosen destination is $\lambda(n) = \Theta\left(\frac W{\sqrt{n\log n}}\right)$
-
-\paragraph{Routing} \emph{proactive}: DSDV, OLSR. \emph{reactive}: AODV, DSR
 
 
 
@@ -388,7 +360,7 @@ For \textbf{one} tag in $P_i$, the linkability probability is  $1/|P_i| \rightar
 \section{Comparisons}
 
 \begin{center}
-This amazing cheat-sheet was brought to you by \emph{Julien Perrochet}, \emph{Christopher Chiche} and \emph{Tobias Schlatter}. Follow us on GitHub: \url{https://github.com/Shastick/mobnet2012} !
+This cheat-sheet is an update by \emph{Aubry Cholleton} of the amazing work of \emph{Julien Perrochet}, \emph{Christopher Chiche} and \emph{Tobias Schlatter}. GitHub:\url{https://github.com/aubry/mobnet2012}
 \end{center}
 \end{multicols}
 
