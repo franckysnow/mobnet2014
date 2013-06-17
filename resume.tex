@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{multicol}
 \usepackage{graphicx}
+\usepackage{verbatim}
 \usepackage{setspace}
 \usepackage[compact]{titlesec}
 
@@ -262,17 +263,33 @@ Then the throughput $\lambda(n)$ obtainable by each node for a randomly chosen d
 \emph{DSR : } Route discovery only when source S attempts to send a packet to destination D, by flooding Route Requests (RREQ). Route maintenance by allowing S to detect when a link is broken with a Route Error message RERR, S try other route in its cache, otherwise route disc.
 \emph{AODV : } Similar to DSR but maintains routing tables at the nodes (smaller header). AODV ages the routes and maintains a hop count.
 
-
-
-
-
-
-\paragraph{Mobile IP Requirements}:
+\section{Mobile Network Layer}
+\paragraph{Mobile Network Layer}:
 Transparency, Compatibility, Security, Efficiency, Scalability.
-
-\paragraph{Mobile IP Issues}: Security(Authentication to FA is problematic), Firewalls, QoS
-
 \paragraph{Network Layers} Top-down: Application, Transport, (HIP layer), Network, Data-link, Physical.
+\paragraph{Mobile IP }:Issues : Security(Authentication to FA is problematic), Firewalls, QoS. IPSec can provide CIA by adding layer btwn IP and TCP/UDP. Mobile IPv6 : no FA, COA alwys co-loc, IPsec, route optim, bidirectional tunnel HA\textless -\textgreater COA.
+\includegraphics[width=\columnwidth]{E1}
+Agent Discovery :
+-MN discovers its location, HA and FA periodically send advertisement messages or via DHCP
+-MN learns a COA.
+Registration :
+-MN securely signals the COA to the HA (via the FA)
+Tunneling :
+-HA encapsulates IP packets from CN and sends them to the COA
+-FA (or MN) decapsulates these packets and sends them to the MN
+(Route optimization : HA provides the CN with the current location of MN (FA).CN sends tunneled traffic directly to FA. Picture of route and FA handover optim :
+\includegraphics[width=\columnwidth]{E3}
+
+\paragraph{HIP} New layer btw IP and transport, integrate security, mobility and multi-homing, decouple name and locator role of IP HI = public key. HIT=h(HI), DH : Diffie-Hellman key material, sig signature generated with private key of $HI_{I/R}$\\
+\includegraphics[width=\columnwidth]{E4}
+\includegraphics[width=\columnwidth]{E5}
+Mobility :\\
+\includegraphics[width=\columnwidth]{E6}
+
+
+
+
+
 
 
 
@@ -321,7 +338,7 @@ $I_1,I_2$, sets of elements to be related, $p_r$, the probability two elements a
 \begin{equation*}
 	\sum_{\forall R \subseteq I_1 \times I_2}p_r \log(p_r)
 \end{equation*}
-
+\begin{comment}
 \subsection{RFID}
 \paragraph{Standard tags possibilities}: Kill, Sleep, Rename, Block, (Legislation).
 \paragraph{Crypto enabled tags possibilities}: Tree-approach, synchronization approach, hash chain based approach.
@@ -356,9 +373,7 @@ For \textbf{one} tag in $P_i$, the linkability probability is  $1/|P_i| \rightar
 \begin{equation*}
 \frac1n\sum_{i=1}^l(|P_i|\frac1{|P_i|}) = \frac ln
 \end{equation*}
-
-\section{Comparisons}
-
+\end{comment}
 \begin{center}
 This cheat-sheet is an update by \emph{Aubry Cholleton} of the amazing work of \emph{Julien Perrochet}, \emph{Christopher Chiche} and \emph{Tobias Schlatter}. GitHub:\url{https://github.com/aubry/mobnet2012}
 \end{center}
