@@ -158,7 +158,9 @@ Free space received power: $P_\textrm{R} =  P_\textrm{T}G_\textrm{T}G_\textrm{R}
 
 Loss: $L = \frac{P_T}{P_R} = \frac{(4\pi d)^2}{G_RG_T\lambda^2} $
 
-$ c = 3 \cdot 10^8 $
+$ERP = P_t G_t$
+
+Waves: $\lambda \cdot f = c$; $ c = 3 \cdot 10^8 $
 
 Parabola: $G = \frac{7A}{\lambda^2}$
 
@@ -306,11 +308,11 @@ Mobility :\\
 \paragraph{New Reno Fast Recovery} More intelligent fast recovery where you remember the last received ACK.
 
 \subsection{Mobile}
-\paragraph{Indirect TCP (I-TCP)} Connection split at FA. Standard TCP on the wire line, wireless optimized TCP on the wifi side: shorter timeout, faster retransmission. Loss of end-to-end semantics, security issues.
+\paragraph{Indirect TCP (I-TCP)} Connection split at FA. Standard TCP on the wire line, wireless optimized TCP on the wifi side: shorter timeout, faster retransmission. Loss of end-to-end semantics, security issues. AP acks all seg.
 \paragraph{Mobile TCP (M-TCP)} Split connection at FA. Monitor packets, if a disconnect is detected, report receiver window $= 0$: sender will go into persist mode and doesn't timeout or modify his congestion window. Preserves end-to-end semantics. Disadv.: wifi losses propagate to the wire network, link-errors pkt loss must be resent by sender, security issues. \underline{Summary}: only handles mobility errors, no transmission errors.
 
 \paragraph{Snooping-TCP} TCP-aware link layer: Split connections, FA buffers and retransmits segments, does not ACK buffered packets (preserves end-to-end semantics).
-\\Performance enhancing proxy (content caching, compression): breaks security end-to-end semantics.\\ Link layer retransmission only if error detected (FEC)
+\\PEP (content caching, compression): breaks security end-to-end semantics.\\ Link layer retransmission only if error detected (FEC). NACK mech. for missing seg.
 \paragraph{Transaction oriented TCP (T-TCP)} TCP phases: connection setup, data transmission, connection release. T-TCP combines these steps and only 2-3 packets are needed for short messages. Efficient for single packet transactions, but requires TCP modifications on all hosts.
 \paragraph{SIP} Application layer protocol\\
 \emph{SIP invite} : Port number, IP, Preferred encoding. \emph{200 OK} : Port number, IP, Preferred encoding. (over TCP or UDP). \emph{How to find IP ?} User register to a SIP registrar server. Then use SIP proxies to find IP (similar to DNS). RTP is an alternative to SIP. VoIP over IEEE 802.11 DCF : Best effort service.
@@ -321,8 +323,8 @@ Mobility :\\
 
 \section{Security}
 \paragraph{Security Requirements}: Confidentiality, Authenticity, Replay Detection, Integrity, Access Control, Jamming Protection.
-\paragraph{GSM} Shared secret and challenge responses, one-way authentication.
-\paragraph{3GPP} (Improvements from GSM) Two-way authentication, avoid fake base station, cipher keys and auth data is now encrypted, integrity. Privacy/Anonymity not completely protected however.
+\paragraph{GSM} Shared secret and challenge responses, one-way auth.
+\paragraph{3GPP} (Improvements from GSM) Two-way auth., avoid fake base station, cipher keys and auth data is now encrypted, integrity. Privacy/Anonymity not completely protected.
 
 \section{Privacy}
 \paragraph{Privacy Related Notions}Anonymity, untraceability, unlinkability, unobservability, pseudonymity
@@ -334,15 +336,23 @@ Wireless: requires one or several third-party owned databases that can track you
 \subsection{Privacy Metrics}
 
 \paragraph{Entropy-Based Anonymity}
-$A$ the anonymity set (set of subjects that might have performed the action), $p_x$ the probability for an external observer that the action was performed by $x$:
-\begin{equation*}
-	\sum_{\forall x \in A} p_x \log(p_x)
-\end{equation*}
+$A$ the anonymity set (set of subjects that might have performed the action), $p_x$ the probability for an external observer that the action was performed by $x$: $H = - \sum_{\forall x \in A} p_x \log_2(p_x)$.
 
 \paragraph{Entropy-Based Unlinkability}
-$I_1,I_2$, sets of elements to be related, $p_r$, the probability two elements are related for an external observator: $\sum_{\forall R \subseteq I_1 \times I_2}p_r \log(p_r)$
+$I_1,I_2$, sets of elements to be related, $p_r$, the probability two elements are related for an external observator: $H = - \sum_{\forall R \subseteq I_1 \times I_2}p_r \log_2(p_r)$
 
 \paragraph{Expected error-based measure for correctness} $\sum_{v \in V} p_v \times d(v,v_0)$
+
+\subsection{Mix-zone}
+$p_{i,j} = \mathbb{P} \left\{ \text{exiting at } i | \text{entering at } i \right\}$
+
+$D_{i,j}$: random variable (delay) representing time that elapses between entering at $i$ and exiting at $j$.
+
+$d_{i,j}(t) = \mathbb{P} \{D_{i,j} = t \}$
+
+$\mathbb{P} \left\{ \text{exiting at } j \text{ at } t | \text{entering at } i \text{ at } \tau \right\} = p_{i,j} d_{i,j}(t - \tau)$
+
+\paragraph{Correctness}: $C = \sum_\sigma p_\sigma d(\sigma(i), j)$
 
 \begin{comment}
 \subsection{RFID}
@@ -380,19 +390,21 @@ For \textbf{one} tag in $P_i$, the linkability probability is  $1/|P_i| \rightar
 \frac1n\sum_{i=1}^l(|P_i|\frac1{|P_i|}) = \frac ln
 \end{equation*}
 \end{comment}
+
+\begin{comment}
 \begin{center}
-This cheat-sheet is an update by \emph{Aubry Cholleton} of the amazing work of \emph{Julien Perrochet}, \emph{Christopher Chiche} and \emph{Tobias Schlatter}. GitHub:\url{https://github.com/aubry/mobnet2012}
+This cheat-sheet is an update by \emph{F. Youssef} of the amazing work of \emph{A. Cholleton}, \emph{J. Perrochet}, \emph{C. Chiche} and \emph{T. Schlatter}. GitHub: \url{https://github.com/franckysnow/mobnet2014}
 \end{center}
+\end{comment}
+
 \end{multicols}
 
 \begin{center}
 \vspace{-10pt}
 Values of $N$: 0,1,3,4,7,9,12,13,16,19,21,25,27,28,31,36,37,39,43,48,49,52,57,61,63,64,67,73,75,76,79,81,84,91,93,97,100,103,108,109,111,112,117,124,127,129,133,139,147,148,151,156,169,171,175,192,193,196,217,219,243,244,271,300
-
-
-
 \end{center}
 \vspace{-5pt}
+
 \hrule
 \vspace{-10pt}
 \input{Acronymes}
